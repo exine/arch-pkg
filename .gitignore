@@ -3,5 +3,9 @@
 *.log
 *.log.*
 *.sig
+*.jar
+*/cksum
+*/PKGBUILD
 pkg/
 src/
+node_modules/
