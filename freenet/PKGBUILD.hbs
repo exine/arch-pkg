@@ -1,6 +1,6 @@
 pkgname=freenet
 pkgver=0.7.5
-pkgrel=4
+pkgrel=5
 pkgdesc="An encrypted network without censorship"
 url="http://freenetproject.org/"
 license=('GPL2')
@@ -8,7 +8,7 @@ arch=('any')
 depends=('java-runtime')
 install=freenet.install
 source=(https://downloads.freenetproject.org/alpha/installer/${pkgname}07.tar.gz
-        http://www.bouncycastle.org/download/bcprov-jdk15on-150.jar
+        http://www.bouncycastle.org/download/bcprov-jdk15on-149.jar
         freenet.service)
 
 {{{checksums}}}
@@ -20,7 +20,7 @@ build() {
 package() {
   cd "${srcdir}/${pkgname}"
 
-  echo 'wrapper.java.classpath.3=bcprov-jdk15on-150.jar' >> wrapper.conf
+  echo 'wrapper.java.classpath.3=bcprov-jdk15on-149.jar' >> wrapper.conf
   cp -aL ../bcprov-jdk15on-150.jar .
   mkdir -p "${pkgdir}"/opt/${pkgname}
   cp -a . "${pkgdir}"/opt/${pkgname}/.
