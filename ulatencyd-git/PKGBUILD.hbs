@@ -1,0 +1,46 @@
+# Contributor: Harley Laue <losinggeneration@gmail.com>
+
+pkgname=ulatencyd-git
+pkgver=857.cf9f525
+pkgrel=1
+# poelzi's official repo seems to be inactive
+pkgdesc="A daemon to minimize latency on a linux system using cgroups (gajdusek's fork)"
+arch=('i686' 'x86_64')
+url="https://github.com/exine/ulatencyd/"
+license=('GPL')
+depends=('dbus-glib' 'consolekit' 'lua51' 'lua51-posix' 'libxcb' 'python2' 'dbus-python' 'lua51-bitop')
+optdepends=('python2-qt: Qt GUI')
+makedepends=('cmake' 'git' 'procps-ng-static')
+backup=("etc/ulatencyd/ulatencyd.conf")
+provides=('ulatencyd')
+conflicts=('ulatencyd')
+source=(
+	"archlinux"::'git://github.com/exine/ulatencyd.git'
+)
+
+sha512sums=('SKIP')
+
+pkgver() {
+	cd "$srcdir/ulatencyd"
+	echo $(git rev-list --count HEAD).$(git rev-parse --short HEAD)
+}
+
+build() {
+	cd "$srcdir/ulatencyd"
+
+	cmake \
+		-DRUNTIME_DESTINATION=bin \
+		-DLUA_INCLUDE_DIR=/usr/include/lua5.1 \
+		-DDEVELOP_MODE=false \
+		-DCMAKE_INSTALL_PREFIX=/usr \
+		-DSYSTEMD_DIR=/usr/lib/systemd/system \
+		-DCMAKE_BUILD_TYPE=RelWithDebInfo
+
+	make
+}
+
+package() {
+	cd "$srcdir/ulatencyd"
+	make DESTDIR="$pkgdir" install
+}
+
