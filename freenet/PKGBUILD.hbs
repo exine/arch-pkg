@@ -1,6 +1,6 @@
 pkgname=freenet
 pkgver=0.7.5
-pkgrel=5
+pkgrel=6
 pkgdesc="An encrypted network without censorship"
 url="http://freenetproject.org/"
 license=('GPL2')
@@ -21,7 +21,7 @@ package() {
   cd "${srcdir}/${pkgname}"
 
   echo 'wrapper.java.classpath.3=bcprov-jdk15on-149.jar' >> wrapper.conf
-  cp -aL ../bcprov-jdk15on-150.jar .
+  cp -aL "${srcdir}"/bcprov-jdk15on-149.jar .
   mkdir -p "${pkgdir}"/opt/${pkgname}
   cp -a . "${pkgdir}"/opt/${pkgname}/.
   chmod -R ug=rwX,o= "${pkgdir}"/opt/freenet
