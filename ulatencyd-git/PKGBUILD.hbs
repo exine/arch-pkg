@@ -8,7 +8,7 @@ pkgdesc="A daemon to minimize latency on a linux system using cgroups (gajdusek'
 arch=('i686' 'x86_64')
 url="https://github.com/exine/ulatencyd/"
 license=('GPL')
-depends=('dbus-glib' 'consolekit' 'lua51' 'lua51-posix' 'libxcb' 'python2' 'dbus-python' 'lua51-bitop')
+depends=('dbus-glib' 'lua51-static' 'lua51-posix' 'libxcb' 'python2' 'dbus-python' 'lua51-bitop')
 optdepends=('python2-qt: Qt GUI')
 makedepends=('cmake' 'git' 'procps-ng-static')
 backup=("etc/ulatencyd/ulatencyd.conf")
@@ -18,15 +18,17 @@ source=(
 	"archlinux"::'git://github.com/exine/ulatencyd.git'
 )
 
+_branchname="archlinux"
+
 sha512sums=('SKIP')
 
 pkgver() {
-	cd "$srcdir/ulatencyd"
+	cd "$srcdir/$_branchname"
 	echo $(git rev-list --count HEAD).$(git rev-parse --short HEAD)
 }
 
 build() {
-	cd "$srcdir/ulatencyd"
+	cd "$srcdir/$_branchname"
 
 	cmake \
 		-DRUNTIME_DESTINATION=bin \
@@ -40,7 +42,7 @@ build() {
 }
 
 package() {
-	cd "$srcdir/ulatencyd"
+	cd "$srcdir/$_branchname"
 	make DESTDIR="$pkgdir" install
 }
 
