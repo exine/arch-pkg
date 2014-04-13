@@ -15,12 +15,15 @@ backup=("etc/ulatencyd/ulatencyd.conf")
 provides=('ulatencyd')
 conflicts=('ulatencyd')
 source=(
-	"archlinux"::'git://github.com/exine/ulatencyd.git'
+	'git://github.com/poelzi/ulatencyd.git'
+	'archlinux.patch'
 )
 
-_branchname="archlinux"
+_branchname="ulatencyd"
 
-sha512sums=('SKIP')
+
+{{{checksums}}}
+
 
 pkgver() {
 	cd "$srcdir/$_branchname"
@@ -29,6 +32,8 @@ pkgver() {
 
 build() {
 	cd "$srcdir/$_branchname"
+
+	patch -p1 < "$srcdir/archlinux.patch"
 
 	cmake \
 		-DRUNTIME_DESTINATION=bin \
