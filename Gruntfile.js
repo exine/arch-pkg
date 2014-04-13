@@ -7,7 +7,8 @@ module.exports = function(grunt) {
 		checksum: {
 			'freenet': {},
 			'telepathy-sunshine': {},
-			'ulatencyd-git': {}
+			'ulatencyd-git': {},
+			'lua51-static': {}
 		},
 		pkgbuilds: {
 			"freenet": {
@@ -22,7 +23,12 @@ module.exports = function(grunt) {
 			},
 			"ulatencyd-git": {
 				files: {
-					'telepathy-sunshine/PKGBUILD': ['telepathy-sunshine/PKGBUILD.hbs']
+					'ulatencyd-git/PKGBUILD': ['ulatencyd-git/PKGBUILD.hbs']
+				}
+			},
+			"lua51-static": {
+				files: {
+					'lua51-static/PKGBUILD': ['lua51-static/PKGBUILD.hbs']
 				}
 			}
 		}
